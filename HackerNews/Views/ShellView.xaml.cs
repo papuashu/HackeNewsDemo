@@ -17,16 +17,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HackerNews
+namespace HackerNews.Views
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class ShellView : UserControl
 	{
-		public MainWindow()
+		public ShellView()
 		{
-			DataContext = new MainViewModel();
+			DataContext = new ShellViewModel();
 
 			InitializeComponent();
 		}

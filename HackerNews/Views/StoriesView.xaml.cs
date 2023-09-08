@@ -26,9 +26,9 @@ namespace HackerNews.Views
 	{
 		public StoriesView()
 		{
-			DataContext = new StoriesViewModel();
-
 			InitializeComponent();
+
+			DataContext = new StoriesViewModel();
 		}
 	}
 }

@@ -5,7 +5,7 @@
 		  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		  xmlns:local="clr-namespace:HackerNews" xmlns:vms="clr-namespace:HackerNews.ViewModels"
-		  x:Name="BestStoriesView" mc:Ignorable="d"
+		  x:Name="BestStoriesView" mc:Ignorable="d" d:DataContext="{x:Type vms:StoriesViewModel}"
 				 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
 	<UserControl.Resources>
 		<Style TargetType="ListViewItem">
@@ -25,15 +25,16 @@
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
 				<Label Content="Count" HorizontalAlignment="Left" Margin="3,3,5,3"/>
-				<Label Content="{Binding Count}" HorizontalAlignment="Left" Margin="3,3,5,3"/>
+				<Label Content="{Binding Count}" HorizontalAlignment="Left" Margin="0,3,5,3"/>
 			</StackPanel>
 			<Grid Grid.Column="1" HorizontalAlignment="Stretch" Margin="3">
-				<ProgressBar Value="{Binding ProgressRatio, Mode=OneWay}"
+				<ProgressBar Value="{Binding ProgressRatio}" Maximum="100" Minimum="0" Height="24"
 								 Visibility="{Binding IsBusy, Converter={StaticResource Bool2VisibilityConverter}}"
-								 HorizontalAlignment="Center" VerticalAlignment="Center" />
-				<Label Content="{Binding ProgressRatio, StringFormat='{}{0}%'}" Background="Transparent"
+								 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+				<Label Content="{Binding ProgressRatioStr}" Background="Transparent"
 						 Visibility="{Binding IsBusy, Converter={StaticResource Bool2VisibilityConverter}}"
-						 HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.Foreground="White" TextElement.FontWeight="DemiBold"/>
+						 HorizontalAlignment="Center" VerticalAlignment="Center"
+						 TextElement.Foreground="White" TextElement.FontWeight="DemiBold"/>
 			</Grid>
 			<Button Content="Refresh" IsEnabled="{Binding IsBusy, Converter={StaticResource NotBoolConverter}}"
 					  Command="{Binding RefreshCommand}" HorizontalAlignment="Right" Margin="5" Width="100" Padding="3" Grid.Column="2"/>

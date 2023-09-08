@@ -24,11 +24,14 @@ namespace HackerNews.ViewModels
 
 		public int TotalToFetch { get; protected set; } = 0;
 
-		[DependsOn(nameof(Count))]
+		//[DependsOn(nameof(Count))]
 		public int FetchCount => Count;
 
-		[DependsOn(nameof(TotalToFetch))]
-		public int ProgressRatio => TotalToFetch == 0 ? 0 : FetchCount * 100 / TotalToFetch;
+		//[DependsOn(nameof(FetchCount))]
+		public int ProgressRatio { get => TotalToFetch == 0 ? 0 : FetchCount * 100 / TotalToFetch; set { } }
+
+		//[DependsOn(nameof(FetchCount))]
+		public string ProgressRatioStr => $"{ProgressRatio}%";
 
 		public ICommand RefreshCommand { get; private set; }
 
@@ -93,6 +96,7 @@ namespace HackerNews.ViewModels
 			{
 				NotifyOfPropertyChange(nameof(FetchCount));
 				NotifyOfPropertyChange(nameof(ProgressRatio));
+				NotifyOfPropertyChange(nameof(ProgressRatioStr));
 			}
 		}
 	}

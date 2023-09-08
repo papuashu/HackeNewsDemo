@@ -13,7 +13,7 @@ using System.Windows.Input;
 namespace HackerNews.ViewModels
 {
 	[AddINotifyPropertyChangedInterface]
-	public class MainViewModel : Caliburn.Micro.PropertyChangedBase
+	public class ShellViewModel : Caliburn.Micro.PropertyChangedBase
 	{
 	}
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="HackerNews.MainWindow"
+﻿<UserControl x:Class="HackerNews.Views.ShellView"
 		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,11 +6,10 @@
 		  xmlns:local="clr-namespace:HackerNews"
 		  xmlns:vms="clr-namespace:HackerNews.ViewModels"
 		  xmlns:view="clr-namespace:HackerNews.Views"
-		  x:Name="BestStoriesWindow" mc:Ignorable="d"
-		  Title="Hacker News Dmo" Height="450" Width="800">
+		  x:Name="BestStoriesWindow" mc:Ignorable="d">
 	<TabControl>
 		<TabItem Header="Best Stories">
 			<view:StoriesView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="Auto" Width="Auto" />
 		</TabItem>
 	</TabControl>
-</Window>
+</UserControl>
