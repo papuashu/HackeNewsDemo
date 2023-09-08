@@ -5,6 +5,9 @@ using HackerNews.Data;
 
 using Microsoft.Xaml.Behaviors.Core;
 
+using PropertyChanged;
+
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -12,7 +15,22 @@ namespace HackerNews.ViewModels
 {
 	public class StoriesViewModel : BindableCollection<Story>
 	{
+		public StoriesViewModel()
+		{
+			RefreshCommand = new ActionCommand(OnRefresh);
+		}
+
 		public bool IsBusy { get; set; } = false;
+
+		public int TotalToFetch { get; protected set; } = 0;
+
+		[DependsOn(nameof(Count))]
+		public int FetchCount => Count;
+
+		[DependsOn(nameof(TotalToFetch))]
+		public int ProgressRatio => TotalToFetch == 0 ? 0 : FetchCount * 100 / TotalToFetch;
+
+		public ICommand RefreshCommand { get; private set; }
 
 		public ICommand OpenUrlCommand { get; set; } = new ActionCommand(OpenUrl);
 
@@ -20,6 +38,7 @@ namespace HackerNews.ViewModels
 		{
 			IsBusy = true;
 			this.Clear();
+
 			try
 			{
 				var storiesRepository = new BestStoriesRepository();
@@ -29,9 +48,16 @@ namespace HackerNews.ViewModels
 				//this.AddRange(stories.OrderBy(s => s.time));
 
 				//variant: for long / slow connections, but no ordering by Date Time
-				using (var apiReq = new ApiRequest("https://hacker-news.firebaseio.com/v0/"))
+				var ids = await storiesRepository.BestStoriesIDs();
+				if (ids == null || ids.Count == 0)
 				{
-					var ids = await storiesRepository.BestStoriesIDs();
+					return;
+				}
+
+				TotalToFetch = ids.Count;
+
+				using (var apiReq = new ApiRequest(BestStoriesRepository.BaseUriStr))
+				{
 					foreach (var id in ids)
 					{
 						var story = await apiReq.GetItemAsync<Story>($"item/{id}.json");
@@ -56,6 +82,17 @@ namespace HackerNews.ViewModels
 					UseShellExecute = true,
 				};
 				System.Diagnostics.Process.Start(sInfo);
+			}
+		}
+
+		protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+
+			if (e.PropertyName == nameof(Count))
+			{
+				NotifyOfPropertyChange(nameof(FetchCount));
+				NotifyOfPropertyChange(nameof(ProgressRatio));
 			}
 		}
 	}

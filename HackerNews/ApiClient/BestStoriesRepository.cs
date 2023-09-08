@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HackerNews.ApiClient
@@ -17,8 +16,10 @@ namespace HackerNews.ApiClient
 
 		internal async Task<List<int>> BestStoriesIDs()
 		{
-			var ids = await new ApiRequest(BaseUriStr).GetListAsync<int>("beststories.json");
-			return ids;
+			using (var req = new ApiRequest(BaseUriStr))
+			{
+				return await req.GetListAsync<int>("beststories.json");
+			}
 		}
 
 		internal async Task<List<Story>> GetBestStories()

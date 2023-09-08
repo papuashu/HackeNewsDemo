@@ -7,5 +7,12 @@
 	 <Application.Resources>
 		<cvtr:Long2DateTimeConverter x:Key="Long2DateTimeConverter"/>
 		<cvtr:NotBoolConverter x:Key="NotBoolConverter"/>
+		<cvtr:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter"/>
+		<Style x:Key="RssIconStyle" TargetType="{x:Type Image}">
+			<Setter Property="Source" Value="/images/rss_reflection.gif"/>
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Height" Value="40"/>
+			<Setter Property="Width" Value="40"/>
+		</Style>
 	</Application.Resources>
 </Application>
