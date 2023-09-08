@@ -1,19 +1,9 @@
-﻿using Newtonsoft.Json;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HackerNews.Data
+﻿namespace HackerNews.Data
 {
 	public class Story
 	{
-		//[JsonProperty("id")]
 		public int id { get; set; }
-		//[JsonProperty("type")]
-		public string type { get; set; } //= "story";
+		public string type { get; set; }
 		public string title { get; set; }
 		public long time { get; set; }
 		public string url { get; set; }

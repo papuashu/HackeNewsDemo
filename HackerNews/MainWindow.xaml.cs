@@ -30,13 +30,5 @@ namespace HackerNews
 
 			InitializeComponent();
 		}
-
-		//public List<Story> Stories { get; private set; }
-
-		//private void Button_Click(object sender, RoutedEventArgs e)
-		//{
-		//	var storiesRepository = new BestStoriesRepository();
-		//	var stories = storiesRepository.GetBestStories().GetAwaiter().GetResult();
-		//}
 	}
 }

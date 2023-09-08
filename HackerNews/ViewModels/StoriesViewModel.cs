@@ -23,6 +23,7 @@ namespace HackerNews.ViewModels
 			try
 			{
 				var storiesRepository = new BestStoriesRepository();
+
 				//variant: for short list, get all items and display when done
 				//var stories = await storiesRepository.GetBestStories();
 				//this.AddRange(stories.OrderBy(s => s.time));
