@@ -14,8 +14,13 @@ namespace HackerNews.ApiClient
 	{
 		private bool disposedValue;
 
-		internal ApiRequest()
+		internal ApiRequest(string baseUri)
 		{
+			if (string.IsNullOrEmpty(baseUri))
+				throw new ArgumentNullException(nameof(baseUri));
+
+			BaseUri = new Uri(baseUri);
+
 			ApiClient = new HttpClient() { BaseAddress = BaseUri };
 			ApiClient.DefaultRequestHeaders.Accept.Clear();
 			ApiClient.DefaultRequestHeaders.Accept.Add(
@@ -23,7 +28,7 @@ namespace HackerNews.ApiClient
 
 		}
 
-		internal Uri BaseUri { get; set; } = new Uri("https://hacker-news.firebaseio.com/v0/");
+		internal Uri BaseUri { get; set; }
 		internal HttpClient ApiClient { get; set; }
 
 		internal async Task<List<TItem>> GetListAsync<TItem>(string path)

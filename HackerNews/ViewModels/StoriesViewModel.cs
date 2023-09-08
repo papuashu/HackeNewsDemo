@@ -29,7 +29,7 @@ namespace HackerNews.ViewModels
 				//this.AddRange(stories.OrderBy(s => s.time));
 
 				//variant: for long / slow connections, but no ordering by Date Time
-				using (var apiReq = new ApiRequest())
+				using (var apiReq = new ApiRequest("https://hacker-news.firebaseio.com/v0/"))
 				{
 					var ids = await storiesRepository.BestStoriesIDs();
 					foreach (var id in ids)

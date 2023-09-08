@@ -1,6 +1,4 @@
-﻿using HackerNews.ApiClient;
-
-using Microsoft.Xaml.Behaviors.Core;
+﻿using Microsoft.Xaml.Behaviors.Core;
 
 using PropertyChanged;
 

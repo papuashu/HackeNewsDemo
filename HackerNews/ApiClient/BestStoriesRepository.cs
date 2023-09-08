@@ -10,9 +10,14 @@ namespace HackerNews.ApiClient
 {
 	internal class BestStoriesRepository
 	{
+		//TODO: set it in app.config; not hardcoded
+		//TODO: similarly for endpoints
+		internal const string BaseUriStr = "https://hacker-news.firebaseio.com/v0/";
+
+
 		internal async Task<List<int>> BestStoriesIDs()
 		{
-			var ids = await new ApiRequest().GetListAsync<int>("beststories.json");
+			var ids = await new ApiRequest(BaseUriStr).GetListAsync<int>("beststories.json");
 			return ids;
 		}
 
@@ -20,11 +25,13 @@ namespace HackerNews.ApiClient
 		{
 			var ids = await BestStoriesIDs();
 			var bestStoriesList = new List<Story>();
-			var apiReq = new ApiRequest();
-			foreach (var id in ids)
+			using (var apiReq = new ApiRequest(BaseUriStr))
 			{
-				var story = await apiReq.GetItemAsync<Story>($"item/{id}.json");
-				bestStoriesList.Add(story);
+				foreach (var id in ids)
+				{
+					var story = await apiReq.GetItemAsync<Story>($"item/{id}.json");
+					bestStoriesList.Add(story);
+				}
 			}
 			return bestStoriesList;
 		}
