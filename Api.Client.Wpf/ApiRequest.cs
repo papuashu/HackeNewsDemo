@@ -8,13 +8,13 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HackerNews.ApiClient
+namespace Api.Client.Wpf
 {
-	internal class ApiRequest : IDisposable
+	public class ApiRequest : IDisposable
 	{
 		private bool disposedValue;
 
-		internal ApiRequest(string baseUri)
+		public ApiRequest(string baseUri)
 		{
 			if (string.IsNullOrEmpty(baseUri))
 				throw new ArgumentNullException(nameof(baseUri));
@@ -31,9 +31,9 @@ namespace HackerNews.ApiClient
 		internal Uri BaseUri { get; set; }
 		internal HttpClient ApiClient { get; set; }
 
-		internal async Task<List<TItem>> GetListAsync<TItem>(string path)
+		public async Task<List<TItem>?> GetListAsync<TItem>(string path)
 		{
-			List<TItem> items = null;
+			List<TItem>? items = null;
 			HttpResponseMessage response = await ApiClient.GetAsync(path);
 			if (response.IsSuccessStatusCode)
 			{
@@ -42,10 +42,10 @@ namespace HackerNews.ApiClient
 			return items;
 		}
 
-		internal async Task<TItem> GetItemAsync<TItem>(string path)
+		public async Task<TItem?> GetItemAsync<TItem>(string path)
 			where TItem : class
 		{
-			TItem item = null;
+			TItem? item = null;
 			HttpResponseMessage response = await ApiClient.GetAsync(path);
 			if (response.IsSuccessStatusCode)
 			{
@@ -61,7 +61,9 @@ namespace HackerNews.ApiClient
 				if (disposing)
 				{
 					var x = ApiClient;
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 					ApiClient = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 					x?.Dispose();
 				}
 

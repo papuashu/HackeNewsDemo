@@ -111,7 +111,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ApiClient\ApiRequest.cs" />
     <Compile Include="ApiClient\BestStoriesRepository.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -162,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="rss_reflection.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Api.Client.Wpf\Api.Client.Wpf.csproj">
+      <Project>{2aee5208-d5e2-4e98-801f-ac64ae34a090}</Project>
+      <Name>Api.Client.Wpf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
